@@ -1,0 +1,36 @@
+###
+# Login
+@hostname = localhost
+@port = 8080
+@host = {{hostname}}:{{port}}
+
+# Credenciales válidas
+###
+POST http://{{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "password"
+}
+
+###
+# Credenciales inválidas
+###
+POST http://{{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "usuario_invalido",
+  "password": "contraseña_invalida"
+}
+# Nuevas credenciales de usuario
+###
+POST http://{{host}}/api/usuarios/registro
+Content-Type: application/json
+
+{
+  "id": "12345",
+  "nombre_usuario": "nuevoUsuario",
+  "contrasena": "miContrasenaSegura"
+}

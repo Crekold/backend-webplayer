@@ -1,0 +1,54 @@
+###
+# Subir Cancion
+@hostname = localhost
+@port = 8080
+@host = {{hostname}}:{{port}}
+
+# Archivo de canción a subir
+###
+POST http://{{host}}/api/canciones/subir
+Content-Type: multipart/form-data; boundary=---BOUNDARY
+
+-----BOUNDARY
+Content-Disposition: form-data; name="id"
+Content-Type: text/plain
+
+123
+-----BOUNDARY
+Content-Disposition: form-data; name="titulo"
+Content-Type: text/plain
+
+newjeans
+-----BOUNDARY
+Content-Disposition: form-data; name="albumId"
+Content-Type: text/plain
+
+b1
+-----BOUNDARY
+Content-Disposition: form-data; name="artistaId"
+Content-Type: text/plain
+
+ar1
+-----BOUNDARY
+Content-Disposition: form-data; name="duracion"
+Content-Type: text/plain
+
+200
+-----BOUNDARY
+Content-Disposition: form-data; name="genero"
+Content-Type: text/plain
+
+kpop
+-----BOUNDARY
+Content-Disposition: form-data; name="file"; filename="newjeans.mp3"
+Content-Type: audio/mpeg
+
+< C:\Users\epicg\OneDrive\Documentos\GitHub\test ia\music\http\newjeans.mp3
+-----BOUNDARY--
+###
+GET http://localhost:8080/files/da7e00681898
+Accept: audio/mpeg
+
+###
+GET http://localhost:8080/stream/1
+Accept: audio/mpeg
