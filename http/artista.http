@@ -1,0 +1,29 @@
+###
+# Subir Cancion
+@hostname = localhost
+@port = 8080
+@host = {{hostname}}:{{port}}
+
+# Archivo de canción a subir
+###
+POST http://{{host}}/api/artistas
+Content-Type: multipart/form-data; boundary=---BOUNDARY
+
+-----BOUNDARY
+Content-Disposition: form-data; name="artista"
+Content-Type: application/json
+
+{
+  "id": "69",
+  "nombre": "NewJeans",
+  "biografia": "Esta es la biografía del artista."
+}
+-----BOUNDARY
+Content-Disposition: form-data; name="file"; filename="imagen.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\epicg\OneDrive\Documentos\GitHub\test ia\music\http\newjeans.jpg
+-----BOUNDARY--
+
+###
+GET http://{{host}}/api/artistas/69

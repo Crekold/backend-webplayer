@@ -1,0 +1,26 @@
+###
+# Subir Cancion
+@hostname = localhost
+@port = 8080
+@host = {{hostname}}:{{port}}
+###
+POST http://{{host}}/api/albumes
+Content-Type: multipart/form-data; boundary=---BOUNDARY
+
+-----BOUNDARY
+Content-Disposition: form-data; name="album"
+Content-Type: application/json
+
+{
+  "id": "4321",
+  "titulo": "NewJeans Album",
+  "artistaId": "69",
+  "anoLanzamiento": 2022,
+  "genero": "Rock"
+}
+-----BOUNDARY
+Content-Disposition: form-data; name="file"; filename="imagen.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\epicg\OneDrive\Documentos\GitHub\test ia\music\http\album.jpg
+-----BOUNDARY--
