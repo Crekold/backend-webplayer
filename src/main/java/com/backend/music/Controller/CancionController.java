@@ -1,8 +1,10 @@
 package com.backend.music.Controller;
 
 
+
 import com.backend.music.Model.Cancion;
 import com.backend.music.Service.CancionService;
+
 import com.backend.music.dto.CancionDto;
 import com.backend.music.message.ResponseMessage;
 
@@ -15,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/canciones")
@@ -43,23 +44,15 @@ public class CancionController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("No se pudo subir la canción: " + e.getMessage()));
         }
     }
-  @GetMapping("/{id}")
-public ResponseEntity<Object> obtenerCancion(@PathVariable String id) {
-    Optional<Cancion> cancionOptional = cancionService.obtenerCancion(id);
-    if (cancionOptional.isPresent()) {
-        Cancion cancion = cancionOptional.get();
-        CancionDto cancionDto = new CancionDto();
-        cancionDto.setId(cancion.getId());
-        cancionDto.setAlbumId(cancion.getAlbumId());
-        cancionDto.setArtistaId(cancion.getArtistaId());
-        cancionDto.setDuracion(cancion.getDuracion());
-        cancionDto.setGenero(cancion.getGenero());
-        cancionDto.setUrlCancion("/api/canciones/stream/" + cancion.getId());
-        return ResponseEntity.ok().body(cancionDto);
-    } else {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseMessage("No se encontró la canción con ID: " + id));
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> obtenerCancion(@PathVariable String id) {
+        CancionDto cancionDto = cancionService.obtenerCancionDto(id);
+        if (cancionDto != null) {
+            return ResponseEntity.ok().body(cancionDto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseMessage("No se encontró la canción con ID: " + id));
+        }
     }
-}
 
     @GetMapping("/stream/{id}")
     public ResponseEntity<ByteArrayResource> transmitirCancion(@PathVariable String id) {

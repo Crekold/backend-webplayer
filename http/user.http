@@ -6,31 +6,18 @@
 
 # Credenciales válidas
 ###
-POST http://{{host}}/api/auth/login
+POST http://localhost:8080/api/usuarios/registro
 Content-Type: application/json
 
 {
-  "username": "admin",
-  "password": "password"
+  "nombreUsuario": "admin",
+  "contrasena": "password"
 }
-
 ###
-# Credenciales inválidas
-###
-POST http://{{host}}/api/auth/login
+POST http://localhost:8080/api/usuarios/login
 Content-Type: application/json
 
 {
-  "username": "usuario_invalido",
-  "password": "contraseña_invalida"
-}
-# Nuevas credenciales de usuario
-###
-POST http://{{host}}/api/usuarios/registro
-Content-Type: application/json
-
-{
-  "id": "12345",
-  "nombre_usuario": "nuevoUsuario",
-  "contrasena": "miContrasenaSegura"
+  "nombreUsuario": "admin",
+  "contrasena": "password"
 }

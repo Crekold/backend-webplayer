@@ -4,9 +4,11 @@ package com.backend.music.Model;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
-@Table(name = "Usuario")
+@Table(name = "usuario")
 public class Usuario {
     @Id
     @Column(name = "id", nullable = false)
@@ -20,6 +22,12 @@ public class Usuario {
 
     @Column(name = "fecha_registro", nullable = false)
     private Timestamp fechaRegistro;
+
+    @PrePersist
+    public void prePersist() {
+        id = UUID.randomUUID().toString().substring(0, 5);
+        fechaRegistro = new Timestamp(System.currentTimeMillis());
+    }
 
     public Usuario() {
     }

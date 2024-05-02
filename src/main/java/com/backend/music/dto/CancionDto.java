@@ -1,8 +1,10 @@
 package com.backend.music.dto;
 
+
 public class CancionDto {
     private String id;
-    private String albumId;
+    private String titulo;
+    private AlbumDto album;
     private String artistaId;
     private Integer duracion;
     private String genero;
@@ -17,13 +19,18 @@ public class CancionDto {
     public void setId(String id) {
         this.id = id;
     }
-
-    public String getAlbumId() {
-        return albumId;
+    public String getTitulo() {
+        return titulo;
+    }
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+    public AlbumDto getAlbum() {
+        return album;
     }
 
-    public void setAlbumId(String albumId) {
-        this.albumId = albumId;
+    public void setAlbum(AlbumDto album) {
+        this.album = album;
     }
 
     public String getArtistaId() {

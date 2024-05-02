@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.backend.music.Model.Usuario;
 import com.backend.music.Service.UsuarioService;
+import com.backend.music.message.ResponseMessage;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -18,20 +19,23 @@ public class UsuarioController {
     public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
-
-    @PostMapping("/registro")
-    public ResponseEntity<Usuario> register(@RequestBody Usuario usuario) {
-        Usuario newUser = usuarioService.register(usuario);
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+@PostMapping("/registro")
+public ResponseEntity<?> register(@RequestBody Usuario usuario) {
+    Usuario newUser = usuarioService.register(usuario);
+    if (newUser != null) {
+        return new ResponseEntity<>(new ResponseMessage("Usuario registrado con éxito"), HttpStatus.CREATED);
+    } else {
+        return new ResponseEntity<>(new ResponseMessage("Error al registrar el usuario"), HttpStatus.BAD_REQUEST);
     }
+}
 
-    @PostMapping("/login")
-    public ResponseEntity<Usuario> login(@RequestBody Usuario usuario) {
-        Usuario existingUser = usuarioService.login(usuario.getNombreUsuario(), usuario.getContrasena());
-        if (existingUser != null) {
-            return new ResponseEntity<>(existingUser, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+@PostMapping("/login")
+public ResponseEntity<?> login(@RequestBody Usuario usuario) {
+    Usuario existingUser = usuarioService.login(usuario.getNombreUsuario(), usuario.getContrasena());
+    if (existingUser != null) {
+        return new ResponseEntity<>(new ResponseMessage("Inicio de sesión exitoso"), HttpStatus.OK);
+    } else {
+        return new ResponseEntity<>(new ResponseMessage("Error en el inicio de sesión"), HttpStatus.UNAUTHORIZED);
     }
+}
 }

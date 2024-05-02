@@ -52,3 +52,5 @@ Accept: audio/mpeg
 ###
 GET http://localhost:8080/stream/1
 Accept: audio/mpeg
+###
+GET http://localhost:8080/api/canciones/123
